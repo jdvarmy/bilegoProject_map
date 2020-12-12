@@ -1,9 +1,12 @@
-import * as queryString from 'querystring';
+import * as queryString from 'query-string';
 import axios from 'axios';
+
+const requestRoute = 'https://__city__.bilego.ru/wp-json/bilego/v1';
+const { c } = queryString.parse(window.location.search);
 
 const config = {
   withCredentials: true,
-  baseURL: process.env.REACT_APP_HOST,
+  baseURL: process.env.REACT_APP_HOST || `${requestRoute.replace(/__city__/i, c)}`,
 };
 
 const instance = axios.create(config);
