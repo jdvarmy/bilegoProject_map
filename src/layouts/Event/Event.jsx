@@ -54,8 +54,10 @@ const Event = () => {
       case 1:
         return (
           <>
-            <Error />
-            <Footer />
+            <Box className={classes.box}>
+              <Error />
+              <Footer />
+            </Box>
           </>
         );
       default:
