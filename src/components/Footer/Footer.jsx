@@ -34,7 +34,7 @@ const Footer = ({ classes }) => (
     <Grid container justify="center" alignItems="center">
       <Grid item xs={3}>
         <Box className={classes.padding}>
-          <Typography variant="body2">
+          <Typography variant="caption">
             <a href="mailto:support@bilego.ru" className={classes.link}>
               Поддержка: support@bilego.ru
             </a>
@@ -47,7 +47,7 @@ const Footer = ({ classes }) => (
       <Grid item xs={3}>
         <Box className={`${classes.padding} ${classes.flexEnd}`}>
           <CopyrightIcon style={{ fontSize: 15 }} className={classes.marginRight} />
-          <Typography variant="body2" display="inline">
+          <Typography variant="caption" display="inline">
             Bilego.ru
           </Typography>
         </Box>
