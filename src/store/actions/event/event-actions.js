@@ -1,6 +1,7 @@
 import { createAsyncAction } from 'typesafe-actions';
 
 const scope = '@EVENT';
+// const scopeSet = '@SET';
 
 // eslint-disable-next-line import/prefer-default-export
 export const feetchEventAsync = createAsyncAction(

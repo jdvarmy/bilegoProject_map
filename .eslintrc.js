@@ -12,5 +12,11 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react'],
-  rules: { 'linebreak-style': 0, 'object-curly-newline': 0, 'implicit-arrow-linebreak': 0, 'react/prop-types': 0 },
+  rules: {
+    'linebreak-style': 0,
+    'object-curly-newline': 0,
+    'implicit-arrow-linebreak': 0,
+    'react/prop-types': 0,
+    'function-paren-newline': 0,
+  },
 };

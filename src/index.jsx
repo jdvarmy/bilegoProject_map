@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { MuiThemeProvider } from '@material-ui/core';
@@ -12,13 +12,11 @@ import './index.css';
 const store = configureStore();
 
 render(
-  <StrictMode>
-    <MuiThemeProvider theme={theme}>
-      <CssBaseline />
-      <Provider store={store}>
-        <App history={history} />
-      </Provider>
-    </MuiThemeProvider>
-  </StrictMode>,
+  <MuiThemeProvider theme={theme}>
+    <CssBaseline />
+    <Provider store={store}>
+      <App history={history} />
+    </Provider>
+  </MuiThemeProvider>,
   document.getElementById('root'),
 );
