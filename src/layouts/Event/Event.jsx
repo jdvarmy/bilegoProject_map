@@ -10,6 +10,7 @@ import Tickets from '../../components/Tickets/Tickets';
 import Loading from '../../components/Loading/Loading';
 import EventHeader from '../../components/Headers/EventHeader';
 import Footer from '../../components/Footer/Footer';
+import Basket from '../../components/Basket/Basket';
 
 const useStyles = makeStyles({
   box: {
@@ -48,6 +49,7 @@ const Event = () => {
               <EventHeader />
               <Tickets />
               <Footer />
+              <Basket />
             </Box>
           </Fade>
         );

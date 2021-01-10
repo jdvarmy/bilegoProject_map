@@ -18,5 +18,7 @@ module.exports = {
     'implicit-arrow-linebreak': 0,
     'react/prop-types': 0,
     'function-paren-newline': 0,
+    'operator-linebreak': 0,
+    'react/no-array-index-key': 0,
   },
 };

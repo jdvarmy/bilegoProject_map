@@ -1,18 +1,21 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Box from '@material-ui/core/Box';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
-import { useDispatch, useSelector } from 'react-redux';
-import { getBasketReducer } from '../../store/selectors/selectors';
+import { useDispatch } from 'react-redux';
 import { addTicketToBasket, removeTicketFromBasket } from '../../store/actions/basket/basket-actions';
+import { hidePop, showPop } from '../../store/actions/popup/popup-action';
+// eslint-disable-next-line no-unused-vars
+import { WAIT, countAllTicketsInBasket, MAX_TICKETS_IN_BASKET } from '../../utils/utils';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
       display: 'flex',
+      flexDirection: 'row-reverse',
     },
     box: {
       alignItems: 'center',
@@ -26,34 +29,50 @@ const useStyles = makeStyles((theme) =>
 // eslint-disable-next-line import/prefer-default-export
 export const PlusMinusElementsSet = ({
   // eslint-disable-next-line camelcase
-  ticket: { id, name, price_regular, seat_name, row_name, sector_name, type },
+  ticket: { id, name, price_regular, seat_name, row_name, sector_name, type, stock },
+  ticketInBasket,
+  basket,
 }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { basket } = useSelector(getBasketReducer);
-  const currentTicket = basket.find((ticket) => ticket.id === id);
+  let timeout;
 
   const onClickCb = useCallback(
     (flag) => () => {
       if (flag) {
-        dispatch(
-          addTicketToBasket({
-            id,
-            name,
-            price: price_regular,
-            seat: seat_name,
-            row: row_name,
-            sector: sector_name,
-            type,
-            count: 1,
-          }),
-        );
+        if (
+          (ticketInBasket ? ticketInBasket.stock > ticketInBasket.count : true) &&
+          basket.count <= MAX_TICKETS_IN_BASKET
+        ) {
+          dispatch(
+            addTicketToBasket({
+              id,
+              name,
+              price: price_regular,
+              seat: seat_name,
+              row: row_name,
+              sector: sector_name,
+              type,
+              count: 1,
+              stock,
+            }),
+          );
+        } else {
+          dispatch(showPop());
+          timeout = setTimeout(() => {
+            dispatch(hidePop());
+          }, WAIT);
+        }
       } else {
         dispatch(removeTicketFromBasket(id));
       }
     },
-    [currentTicket, basket, dispatch],
+    [ticketInBasket, basket, dispatch],
   );
+
+  useEffect(() => {
+    clearTimeout(timeout);
+  }, []);
 
   return (
     <div className={classes.root}>
@@ -61,7 +80,7 @@ export const PlusMinusElementsSet = ({
         <AddIcon />
       </IconButton>
       <Box display="inline" className={`${classes.root} ${classes.box}`}>
-        <Typography variant="h6">{currentTicket ? currentTicket.count : 0}</Typography>
+        <Typography variant="h6">{ticketInBasket ? ticketInBasket.count : 0}</Typography>
       </Box>
       <IconButton onClick={onClickCb(false)} color="primary">
         <RemoveIcon />

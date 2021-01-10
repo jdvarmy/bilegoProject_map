@@ -1,53 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-// import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
-import { withStyles, createStyles } from '@material-ui/core/styles';
-import { getEventReducer } from '../../store/selectors/selectors';
-import { PlusMinusElementsSet } from '../ControlElems/ControlElemsSet';
+import { getEventSelector } from '../../store/selectors/selectors';
+import { TICKET_TYPE_SET } from '../../utils/utils';
+import Set from './Set/Set';
 
-const styles = (theme) =>
-  createStyles({
-    root: {
-      flex: 'auto',
-    },
-    box: {
-      padding: theme.spacing(1, 2),
-    },
-  });
-
-const Tickets = ({ classes }) => {
-  const { tickets } = useSelector(getEventReducer);
+const Tickets = () => {
+  const {
+    tickets: { type, tickets },
+  } = useSelector(getEventSelector);
 
   console.log(tickets);
-  return (
-    <Grid className={classes.root} container>
-      <Grid item container direction="column" justify="center" alignItems="center">
-        {tickets.tickets.map((ticket) => (
-          <Grid item container key={ticket.id} alignItems="center">
-            <Grid item width={144}>
-              <Box className={classes.box}>
-                <PlusMinusElementsSet ticket={ticket} />
-              </Box>
-            </Grid>
-            <Grid item xs>
-              <Box className={classes.box}>
-                <Typography variant="h5">{ticket.name}</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box className={classes.box}>3</Box>
-            </Grid>
-            <Grid item xs={2}>
-              <Box className={classes.box}>4</Box>
-            </Grid>
-          </Grid>
-        ))}
-      </Grid>
-    </Grid>
-  );
+  return type === TICKET_TYPE_SET && <Set tickets={tickets || []} />;
 };
 
-export default withStyles(styles)(Tickets);
+export default Tickets;

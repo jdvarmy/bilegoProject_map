@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import { createStyles, withStyles } from '@material-ui/core/styles';
-import { getEventDataReducer } from '../../store/selectors/selectors';
+import { getEventDataSelector } from '../../store/selectors/selectors';
 
 const styles = (theme) =>
   createStyles({
@@ -20,7 +20,7 @@ const EventHeader = ({ classes }) => {
   if (window && window !== window.top) {
     return null;
   }
-  const { title, date, address } = useSelector(getEventDataReducer);
+  const { title, date, address } = useSelector(getEventDataSelector);
 
   return (
     <Grid container justify="center" alignItems="center">

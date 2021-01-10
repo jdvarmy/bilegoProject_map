@@ -1,5 +1,4 @@
 export const getErrorSelector = (state) => state.errorReducer.error;
-export const getEventReducer = (state) => state.eventReducer.event;
-export const getEventDataReducer = (state) => state.eventReducer.event.event;
-export const getBasket = (state) => state.basketReducer.basket;
-export const getBasketReducer = (state) => state.basketReducer;
+export const getEventSelector = (state) => state.eventReducer.event;
+export const getEventDataSelector = (state) => state.eventReducer.event.event;
+export const getBasketSelector = (state) => state.basketReducer;
