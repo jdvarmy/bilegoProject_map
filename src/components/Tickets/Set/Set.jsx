@@ -15,7 +15,7 @@ const styles = (theme) =>
       flex: 'auto',
     },
     box: {
-      padding: theme.spacing(1, 2),
+      padding: theme.spacing(2),
     },
     flexBox: {
       display: 'flex',
@@ -51,7 +51,7 @@ const Set = ({ classes, tickets }) => {
                   <Typography variant="h5">{ticket.name}</Typography>
                 </Box>
               </Grid>
-              <Hidden xsDown>
+              <Hidden smDown>
                 <Grid item xs={2}>
                   <Box className={classes.box}>
                     <Typography className={classes.typography} variant="caption">

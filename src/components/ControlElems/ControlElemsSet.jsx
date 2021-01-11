@@ -8,8 +8,7 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { useDispatch } from 'react-redux';
 import { addTicketToBasket, removeTicketFromBasket } from '../../store/actions/basket/basket-actions';
 import { hidePop, showPop } from '../../store/actions/popup/popup-action';
-// eslint-disable-next-line no-unused-vars
-import { WAIT, countAllTicketsInBasket, MAX_TICKETS_IN_BASKET } from '../../utils/utils';
+import { WAIT, MAX_TICKETS_IN_BASKET } from '../../utils/utils';
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -42,7 +41,7 @@ export const PlusMinusElementsSet = ({
       if (flag) {
         if (
           (ticketInBasket ? ticketInBasket.stock > ticketInBasket.count : true) &&
-          basket.count <= MAX_TICKETS_IN_BASKET
+          basket.count < MAX_TICKETS_IN_BASKET
         ) {
           dispatch(
             addTicketToBasket({
@@ -64,15 +63,18 @@ export const PlusMinusElementsSet = ({
           }, WAIT);
         }
       } else {
-        dispatch(removeTicketFromBasket(id));
+        dispatch(removeTicketFromBasket({ id }));
       }
     },
     [ticketInBasket, basket, dispatch],
   );
 
-  useEffect(() => {
-    clearTimeout(timeout);
-  }, []);
+  useEffect(
+    () => () => {
+      clearTimeout(timeout);
+    },
+    [],
+  );
 
   return (
     <div className={classes.root}>

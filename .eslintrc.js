@@ -20,5 +20,6 @@ module.exports = {
     'function-paren-newline': 0,
     'operator-linebreak': 0,
     'react/no-array-index-key': 0,
+    'space-in-parens': 0,
   },
 };
