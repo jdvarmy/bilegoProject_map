@@ -1,10 +1,10 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import Box from '@material-ui/core/Box';
-import Typography from '@material-ui/core/Typography';
 import { useSelector } from 'react-redux';
 import { makeStyles, createStyles } from '@material-ui/core/styles';
 import { getBasketSelector } from '../../store/selectors/selectors';
+import Ticket from './Ticket';
 
 const useStyles = makeStyles(() =>
   createStyles({
@@ -39,10 +39,9 @@ const Basket = () => {
       }}
     >
       <Box>
-        {
-          // делаем карусель билетов, элемент билета вынести в отдельный файл
-        }
-        <Typography variant="h6">hello</Typography>
+        {ticketsList.map((t, k) => (
+          <Ticket ticket={t} key={k} />
+        ))}
       </Box>
     </Drawer>
   );
