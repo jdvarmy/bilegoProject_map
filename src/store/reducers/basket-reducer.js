@@ -4,6 +4,7 @@ import { addTicketToBasket, removeTicketFromBasket } from '../actions/basket/bas
 
 const initialState = {
   tickets: [],
+  ticketsList: [],
   count: 0,
   isTicketInBasket: false,
 };
@@ -17,6 +18,8 @@ const basket = createReducer(initialState)
     } else {
       state.tickets.push(action.payload);
     }
+    state.ticketsList.push({ ...action.payload, count: 1 });
+
     return {
       ...state,
       count: state.tickets.reduce((acc, val) => acc + val.count, 0),
@@ -25,6 +28,7 @@ const basket = createReducer(initialState)
   })
   .handleAction(removeTicketFromBasket, (state, action) => {
     const findTicket = state.tickets.findIndex((t) => t.id === action.payload.id);
+    const findTicketList = state.ticketsList.map((t) => t.id).lastIndexOf(action.payload.id);
     if (findTicket !== -1) {
       // eslint-disable-next-line no-param-reassign,operator-assignment
       state.tickets[findTicket].count = state.tickets[findTicket].count - 1;
@@ -33,6 +37,10 @@ const basket = createReducer(initialState)
       }
     }
     const count = state.tickets.reduce((acc, val) => acc + val.count, 0);
+    if (findTicketList !== -1) {
+      state.ticketsList.splice(findTicketList, 1);
+    }
+
     return {
       ...state,
       count,
@@ -40,24 +48,25 @@ const basket = createReducer(initialState)
     };
   });
 
-const ticketsList = createReducer([])
-  .handleAction(addTicketToBasket, (state, action) => {
-    state.push({ ...action.payload, count: 1 });
-    return [...state];
-  })
-  .handleAction(removeTicketFromBasket, (state, action) => {
-    if (action.payload.index) {
-      state.splice(action.payload.index, 1);
-    } else {
-      const findTicket = state.indexOf((t) => t.id === action.payload.id);
-      state.splice(findTicket, 1);
-    }
-    return [...state];
-  });
+// const ticketsList = createReducer([])
+//   .handleAction(addTicketToBasket, (state, action) => {
+//     state.push({ ...action.payload, count: 1 });
+//     return [...state];
+//   })
+//   .handleAction(removeTicketFromBasket, (state, action) => {
+//     if (action.payload.index) {
+//       console.log(3);
+//       state.splice(action.payload.index, 1);
+//     } else {
+//       console.log(2);
+//       const findTicket = state.indexOf((t) => t.id === action.payload.id);
+//       state.splice(findTicket, 1);
+//     }
+//     return [...state];
+//   });
 
 const basketReducer = combineReducers({
   basket,
-  ticketsList,
 });
 
 export default basketReducer;
