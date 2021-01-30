@@ -20,6 +20,7 @@ module.exports = {
     'function-paren-newline': 0,
     'operator-linebreak': 0,
     'react/no-array-index-key': 0,
+    'react/jsx-props-no-spreading': 0,
     'space-in-parens': 0,
     'spaced-comment': 0,
     'no-confusing-arrow': 0,
