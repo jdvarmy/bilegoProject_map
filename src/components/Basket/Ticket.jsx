@@ -18,7 +18,7 @@ const useStyles = makeStyles(() =>
 );
 
 const Wrapper = styled(({ children, ...other }) => <Box {...other}>{children}</Box>)({
-  width: `${({ shift }) => shift}%`,
+  width: ({ shift }) => `${shift}%`,
   position: 'relative',
   boxSizing: 'border-box',
   display: 'inline-block',

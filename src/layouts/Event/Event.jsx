@@ -11,6 +11,7 @@ import Loading from '../../components/Loading/Loading';
 import EventHeader from '../../components/Headers/EventHeader';
 import Footer from '../../components/Footer/Footer';
 import Basket from '../../components/Basket/Basket';
+import PayCard from '../../components/PayCard/PayCard';
 
 const useStyles = makeStyles({
   box: {
@@ -50,6 +51,7 @@ const Event = () => {
               <Tickets />
               <Footer />
               <Basket />
+              <PayCard />
             </Box>
           </Fade>
         );

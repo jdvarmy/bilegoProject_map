@@ -28,7 +28,7 @@ function* eventRequest() {
     };
     // todo: переделать на нормальный обработчик. с сервера не приходит ошибка...
     if (!event.title) {
-      throw new Error(textString.error.noSearchQuery);
+      throw Error(textString.error.noSearchQuery);
     }
     yield put(feetchEventAsync.success(data));
   } catch (e) {

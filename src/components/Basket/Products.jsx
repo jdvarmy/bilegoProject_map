@@ -1,15 +1,20 @@
 import React from 'react';
-import { styled } from '@material-ui/core/styles';
+import { createStyles, makeStyles, styled } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
 import { Ticket } from './Ticket';
 
-const Root = styled(Box)({
-  display: 'flex',
-  position: 'fixed',
-  bottom: 0,
-  left: 360,
-  zIndex: 10000,
-});
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      display: 'flex',
+    },
+    row: {
+      display: 'flex',
+      flexDirection: 'row-reverse',
+    },
+  }),
+);
+
 const TicketContainer = styled(({ children, ...other }) => <Box {...other}>{children}</Box>)({
   marginTop: '-40px',
   marginLeft: 'auto',
@@ -20,22 +25,22 @@ const TicketTable = styled(({ children, ...other }) => <Box {...other}>{children
   boxSizing: 'border-box',
   maxWidth: ({ shift }) => `${shift}px`,
 });
-const TicketRow = styled(Box)({
-  display: 'flex',
-  flexDirection: 'row',
-});
 
 // eslint-disable-next-line import/prefer-default-export
-export const Products = ({ ticketsList, count }) => (
-  <Root>
-    <TicketContainer shift={140 * count}>
-      <TicketTable shift={140 * count}>
-        <TicketRow>
-          {ticketsList.map((ticket, k) => (
-            <Ticket key={k} ticket={ticket} count={count} number={k + 1} />
-          ))}
-        </TicketRow>
-      </TicketTable>
-    </TicketContainer>
-  </Root>
-);
+export const Products = ({ ticketsList, count }) => {
+  const classes = useStyles();
+
+  return (
+    <Box className={classes.root}>
+      <TicketContainer shift={140 * count}>
+        <TicketTable shift={140 * count}>
+          <Box className={classes.row}>
+            {ticketsList.map((ticket, k) => (
+              <Ticket key={k} ticket={ticket} count={count} number={k + 1} />
+            ))}
+          </Box>
+        </TicketTable>
+      </TicketContainer>
+    </Box>
+  );
+};
